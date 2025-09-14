@@ -7,10 +7,13 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.useGlobalPipes(new ValidationPipe());
 
+  // Swagger Documentation
   const swaggerConfig = new DocumentBuilder()
     .setTitle('LinkLoom API')
-    .setDescription('The API for the LinkLoom URL shortener')
-    .setVersion('1.0')
+    .setDescription('The official API documentation for the LinkLoom URL shortener project. This API handles the creation, retrieval, and redirection of shortened links')
+    .setVersion('0.1.0')
+    .setContact('Andrey Nosov', 'https://github.com/swankygawk', 'swanky.gawk@gmail.com')
+    .addServer('http://localhost:3000', 'Local Development Server')
     .build();
   const document = SwaggerModule.createDocument(app, swaggerConfig);
   SwaggerModule.setup('api', app, document);
