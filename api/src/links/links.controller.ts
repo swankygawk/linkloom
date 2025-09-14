@@ -8,7 +8,7 @@ export class LinksController {
   constructor(private readonly linkService: LinksService) {}
 
   @Post('links')
-  async Create(@Body() createLinkDto: CreateLinkDto) {
+  async create(@Body() createLinkDto: CreateLinkDto) {
     const link = await this.linkService.create(createLinkDto);
     return link;
   }
