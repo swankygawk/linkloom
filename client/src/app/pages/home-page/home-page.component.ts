@@ -13,9 +13,9 @@ import {MatCardModule} from '@angular/material/card';
     MatButtonModule,
     MatCardModule
   ],
-  templateUrl: './home-page.html',
-  styleUrl: './home-page.scss'
+  templateUrl: './home-page.component.html',
+  styleUrl: './home-page.component.scss'
 })
-export class HomePage {
+export class HomePageComponent {
 
 }
