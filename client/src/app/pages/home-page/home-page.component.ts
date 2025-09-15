@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, signal} from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
@@ -39,8 +39,7 @@ export class HomePageComponent {
 
   constructor(
     private apiService: ApiService,
-    private snackBar: MatSnackBar,
-    private cdr: ChangeDetectorRef,
+    private snackBar: MatSnackBar
   ) {
     scheduled([of(this.longUrlForm.statusChanges, this.longUrlForm.valueChanges)], asyncScheduler)
       .pipe(takeUntilDestroyed())
@@ -67,7 +66,7 @@ export class HomePageComponent {
     })
   }
 
-  public updateErrorMessage() {
+  public updateErrorMessage(): void {
     if (this.longUrlForm.hasError('required')) {
       this.errorMessage.set('You must enter a value');
     } else if (this.longUrlForm.hasError('pattern')) {
@@ -83,6 +82,5 @@ export class HomePageComponent {
 
   public resetCardContent(): void {
     this.shortLink.set(null);
-    this.cdr.detectChanges();
   }
 }
