@@ -1,0 +1,72 @@
+<mat-card class="home-card">
+  @if (!shortLink()) {
+    <mat-card-header>
+      <mat-card-title>Shorten a long URL</mat-card-title>
+    </mat-card-header>
+      <form [formControl]="longUrlForm" (ngSubmit)="onSubmit()">
+        <mat-card-content class="home-card-content">
+          <mat-form-field appearance="outline">
+            <mat-label>Long URL</mat-label>
+            <input
+              id="long-url-input"
+              matInput
+              type="url"
+              placeholder="https://example.com/very/long/example"
+              [formControl]="longUrlForm"
+              (blur)="updateErrorMessage()"
+              required
+            />
+            @if (longUrlForm.value) {
+              <button
+                mat-icon-button
+                matSuffix
+                (click)="longUrlForm.reset()"
+              >
+                <mat-icon>close</mat-icon>
+              </button>
+            }
+            <mat-hint align="start">A valid URL (starting with https://)</mat-hint>
+            <mat-error>{{errorMessage()}}</mat-error>
+          </mat-form-field>
+          <button
+            mat-raised-button
+            color="primary"
+            type="submit"
+            [disabled]="longUrlForm.invalid"
+          >
+            Loom it!
+          </button>
+        </mat-card-content>
+      </form>
+  }
+  @if (shortLink()) {
+    <mat-card-header>
+      <mat-card-title>Your link is ready!</mat-card-title>
+    </mat-card-header>
+    <mat-card-content class="home-card-content">
+      <div class="short-link-display">
+        <a
+          [href]="baseUrl + '/' + shortLink()!.shortCode"
+          target="_blank"
+        >
+          {{ baseUrl }}/{{ shortLink()!.shortCode }}
+        </a>
+        <button
+          mat-icon-button
+          matTooltip="Copy to clipboard"
+          [cdkCopyToClipboard]="baseUrl +'/' + shortLink()!.shortCode"
+          (cdkCopyToClipboardCopied)="onCopy()"
+        >
+          <mat-icon>content_copy</mat-icon>
+        </button>
+      </div>
+      <button
+        mat-stroked-button
+        color="accent"
+        (click)="resetCardContent()"
+      >
+        Shorten another link
+      </button>
+    </mat-card-content>
+  }
+</mat-card>
