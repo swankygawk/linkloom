@@ -3,6 +3,11 @@ import { PrismaService } from '../prisma.service';
 import { nanoid } from 'nanoid';
 import { CreateLinkDto } from './dto/create-link.dto';
 
+export interface FindAllLinksOptions {
+  page: number;
+  pageSize: number;
+}
+
 @Injectable()
 export class LinksService {
   constructor(private readonly prisma: PrismaService) {}
@@ -31,4 +36,23 @@ export class LinksService {
 
     return link;
   }
+
+  async findAll(options: FindAllLinksOptions) {
+    const { page, pageSize } = options;
+    const skip = (page - 1) * pageSize;
+
+    const [items, total] = await this.prisma.$transaction([
+      this.prisma.link.findMany({
+        skip: skip,
+        take: pageSize,
+        orderBy: {
+          createdAt: 'desc'
+        },
+      }),
+      this.prisma.link.count(),
+    ]);
+
+    return { items, total };
+  }
+
 }

@@ -35,7 +35,7 @@ export class HomePageComponent {
   public longUrlForm = new FormControl('', [Validators.required, Validators.pattern('(https?://.+)')]);
   public errorMessage = signal('');
   public shortLink = signal<Link | null>(null);
-  public baseUrl = window.location.origin;
+  public baseUrl = window.location.origin + '/links';
 
   constructor(
     private apiService: ApiService,
