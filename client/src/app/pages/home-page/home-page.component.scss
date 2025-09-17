@@ -1,20 +1,19 @@
 @use '@angular/material' as mat;
 
-.home-card {
-  height: 210px;
-  width: 420px;
+.home-container {
+  height: calc(100dvh - 64px);
   display: flex;
-  flex-direction: column;
   justify-content: center;
+  align-items: center;
+}
 
-  @include mat.card-overrides((
-    title-text-size: 1.5rem,
-    title-text-weight: 500
-  ));
+.home-card {
+  width: 75dvw;
+}
 
-  @include mat.form-field-overrides((
-    outlined-input-text-placeholder-color: rgba(255, 255, 255, 0.5)
-  ));
+.home-card-title {
+  font: var(--mat-sys-headline-medium);
+  font-weight: 500;
 }
 
 .home-card-content {
@@ -24,22 +23,22 @@
   gap: 16px;
 }
 
-.short-link-display {
+.short-link-container {
+  height: 52px;
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 16px;
-  background-color: rgba(255, 255, 255, 0.05);
-  margin-top: 14px;
-  margin-bottom: 14px;
+  background-color: var(--mat-sys-background);
   padding: 12px 16px;
   border-radius: 4px;
+  margin-top: 16px;
 }
 
 a {
-  color: lightblue;
-  text-decoration: none;
+  color: var(--mat-sys-primary);
+  font: var(--mat-sys-headline-small);
   font-family: monospace;
-  font-size: 1.1rem;
+  text-decoration: none;
   flex-grow: 1;
   overflow: hidden;
   text-overflow: ellipsis;

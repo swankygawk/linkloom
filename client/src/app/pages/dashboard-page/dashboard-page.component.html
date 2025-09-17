@@ -1,1 +1,77 @@
-<p>dashboard-page works!</p>
+<div class="dashboard-container">
+  @if (isLoading()) {
+    <div class="state-container">
+      <mat-spinner></mat-spinner>
+    </div>
+  }
+
+  @if (!isLoading()) {
+    @if (totalLinks() === 0) {
+      <div class="state-container no-links">
+        You haven't created any links yet. Go Loom one!
+      </div>
+    }
+
+    @if (totalLinks() > 0) {
+      <div class="link-grid">
+        @for (link of links(); track link.id) {
+          <mat-card class="link-card">
+            <mat-card-content class="link-card-content">
+              <div class="info-container">
+                <div class="info-header">
+                  <mat-icon>link</mat-icon>
+                  <span>Original URL</span>
+                </div>
+                <span class="url">{{ link.longUrl }}</span>
+              </div>
+              <mat-divider></mat-divider>
+              <div class="info-container">
+                <div class="info-header">
+                  <mat-icon>shortcut</mat-icon>
+                  <span>Short URL</span>
+                </div>
+                <div class="short-url-container">
+                  <a
+                    class="url"
+                    [href]="baseUrl + '/' + link.shortCode"
+                    target="_blank"
+                  >
+                    {{ baseUrl }}/{{ link.shortCode }}
+                  </a>
+                </div>
+              </div>
+            </mat-card-content>
+
+            <mat-card-actions align="end">
+              <button
+                mat-icon-button
+                matTooltip="Copy short URL"
+                [cdkCopyToClipboard]="baseUrl + '/' + link.shortCode"
+                (cdkCopyToClipboardCopied)="onCopy()"
+              >
+                <mat-icon>content_copy</mat-icon>
+              </button>
+              <button
+                mat-icon-button
+                matTooltip="Delete forever"
+                (click)="onDeleteForever(link.id)"
+              >
+                <mat-icon>delete_forever</mat-icon>
+              </button>
+            </mat-card-actions>
+          </mat-card>
+        }
+      </div>
+      <mat-paginator
+        class="dashboard-paginator"
+        [length]="totalLinks()"
+        [pageIndex]="pageIndex()"
+        [pageSize]="pageSize()"
+        [pageSizeOptions]="[5, 10, 25, 50]"
+        (page)="onPageChange($event)"
+        showFirstLastButtons
+      >
+      </mat-paginator>
+    }
+  }
+</div>

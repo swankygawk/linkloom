@@ -1,0 +1,73 @@
+@use '@angular/material' as mat;
+
+.dashboard-container {
+  height: calc(100dvh - 96px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 16px;
+}
+
+.state-container {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.no-links {
+  font: var(--mat-sys-headline-medium);
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.link-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 16px;
+}
+
+.link-card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.info-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.info-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font: var(--mat-sys-title-large);
+  font-weight: 500;
+}
+
+.url {
+  font: var(--mat-sys-title-medium);
+  font-family: monospace;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.short-url-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  a {
+    color: var(--mat-sys-primary);
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.dashboard-paginator {
+  margin-top: 16px;
+}

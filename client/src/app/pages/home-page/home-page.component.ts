@@ -35,7 +35,7 @@ export class HomePageComponent {
   public longUrlForm = new FormControl('', [Validators.required, Validators.pattern('(https?://.+)')]);
   public errorMessage = signal('');
   public shortLink = signal<Link | null>(null);
-  public baseUrl = window.location.origin;
+  public baseUrl = window.location.origin + '/links';
 
   constructor(
     private apiService: ApiService,
@@ -46,7 +46,7 @@ export class HomePageComponent {
       .subscribe(() => this.updateErrorMessage());
   }
 
-  public onSubmit(): void {
+  onSubmit(): void {
     if (this.longUrlForm.invalid) {
       return;
     }
@@ -66,7 +66,7 @@ export class HomePageComponent {
     })
   }
 
-  public updateErrorMessage(): void {
+  updateErrorMessage(): void {
     if (this.longUrlForm.hasError('required')) {
       this.errorMessage.set('You must enter a value');
     } else if (this.longUrlForm.hasError('pattern')) {
@@ -76,11 +76,11 @@ export class HomePageComponent {
     }
   }
 
-  public onCopy(): void {
+  onCopy(): void {
     this.snackBar.open('Copied!', 'Close', { duration: 2000 });
   }
 
-  public resetCardContent(): void {
+  resetCardContent(): void {
     this.shortLink.set(null);
   }
 }
