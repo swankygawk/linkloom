@@ -10,6 +10,11 @@ export interface Link {
   createdAt: string;
 }
 
+export interface PaginatedLinksResponse {
+  items: Link[];
+  total: number;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -18,5 +23,14 @@ export class ApiService {
 
   public createLink(longUrl: string): Observable<Link> {
     return this.http.post<Link>('/api/links', { longUrl });
+  }
+
+  public getAllLinks(page: number, pageSize: number): Observable<PaginatedLinksResponse> {
+    return this.http.get<PaginatedLinksResponse>('/api/links', {
+      params: {
+        page: page.toString(),
+        pageSize: pageSize.toString(),
+      },
+    });
   }
 }
