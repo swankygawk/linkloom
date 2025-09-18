@@ -13,7 +13,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatTooltip } from '@angular/material/tooltip';
 
 @Component({
-  selector: 'app-home-page',
+  selector: 'app-home',
   standalone: true,
   imports: [
     MatFormFieldModule,
@@ -28,10 +28,10 @@ import { MatTooltip } from '@angular/material/tooltip';
     MatTooltip
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  templateUrl: './home-page.component.html',
-  styleUrl: './home-page.component.scss'
+  templateUrl: './home.component.html',
+  styleUrl: './home.component.scss'
 })
-export class HomePageComponent {
+export class HomeComponent {
   public longUrlForm = new FormControl('', [Validators.required, Validators.pattern('(https?://.+)')]);
   public errorMessage = signal('');
   public shortLink = signal<Link | null>(null);

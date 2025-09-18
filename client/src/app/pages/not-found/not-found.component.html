@@ -1,0 +1,9 @@
+<div class="not-found-container">
+  <div class="state-container">
+    @if (invalidCode()) {
+      The short link {{ invalidCode() }} does not exist or was deleted
+    } @else {
+      The page you're looking for does not exist
+    }
+  </div>
+</div>

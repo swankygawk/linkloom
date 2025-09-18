@@ -12,7 +12,7 @@ import { ApiService, Link } from '../../services/api.service';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-dashboard-page',
+  selector: 'app-dashboard',
   standalone: true,
   imports: [
     MatCardModule,
@@ -27,10 +27,10 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
     MatTooltip
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  templateUrl: './dashboard-page.component.html',
-  styleUrl: './dashboard-page.component.scss'
+  templateUrl: './dashboard.component.html',
+  styleUrl: './dashboard.component.scss'
 })
-export class DashboardPageComponent implements OnInit {
+export class DashboardComponent implements OnInit {
   public links = signal<Link[]>([]);
   public totalLinks = signal(0);
   public pageIndex = signal(0);

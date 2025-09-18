@@ -33,4 +33,8 @@ export class ApiService {
       },
     });
   }
+
+  public getLinkByShortCode(shortCode: string): Observable<Link> {
+    return this.http.get<Link>(`/api/links/${shortCode}`);
+  }
 }

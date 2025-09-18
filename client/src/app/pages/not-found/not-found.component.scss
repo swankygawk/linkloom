@@ -1,0 +1,16 @@
+@use '@angular/material' as mat;
+
+.not-found-container {
+  height: calc(100dvh - 96px);
+  padding: 16px;
+  display: flex;
+}
+
+.state-container {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font: var(--mat-sys-headline-medium);
+  color: var(--mas-sys-on-surface-variant);
+}
