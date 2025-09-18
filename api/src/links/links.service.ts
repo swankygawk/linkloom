@@ -13,16 +13,14 @@ export class LinksService {
   constructor(private readonly prisma: PrismaService) {}
 
   async create(createLinkDto: CreateLinkDto) {
-    const shortCode = nanoid(7)
+    const shortCode = nanoid(7);
 
-    const newLink = await this.prisma.link.create({
+    return this.prisma.link.create({
       data: {
         longUrl: createLinkDto.longUrl,
         shortCode: shortCode,
       },
     });
-
-    return newLink;
   }
 
   async findOne(shortCode: string) {
@@ -46,7 +44,7 @@ export class LinksService {
         skip: skip,
         take: pageSize,
         orderBy: {
-          createdAt: 'desc'
+          createdAt: 'desc',
         },
       }),
       this.prisma.link.count(),
@@ -55,4 +53,14 @@ export class LinksService {
     return { items, total };
   }
 
+  async delete(id: number) {
+    const link = await this.prisma.link.findUnique({ where: { id } });
+    if (!link) {
+      throw new NotFoundException(`Link with ID ${id} not found`);
+    }
+
+    return this.prisma.link.delete({
+      where: { id },
+    });
+  }
 }

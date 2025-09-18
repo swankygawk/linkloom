@@ -2,12 +2,13 @@ import {
   Body,
   Controller,
   DefaultValuePipe,
-  Get,
+  Delete,
+  Get, HttpCode,
   HttpStatus,
   Param,
   ParseIntPipe,
   Post,
-  Query
+  Query,
 } from '@nestjs/common';
 import { LinksService } from './links.service';
 import { CreateLinkDto } from './dto/create-link.dto';
@@ -100,5 +101,23 @@ export class LinksController {
   @Get(':shortCode')
   async redirect(@Param('shortCode') shortCode: string) {
     return await this.linkService.findOne(shortCode);
+  }
+
+  @ApiOperation({
+    summary: 'Delete a link by its ID',
+    description: 'Permanently deletes a link from the database',
+  })
+  @ApiResponse({
+    status: HttpStatus.NO_CONTENT,
+    description: 'The link was successfully deleted',
+  })
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    description: 'The link with the specified ID does not exist',
+  })
+  @Delete(':id')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  async delete(@Param('id', ParseIntPipe) id: number): Promise<void> {
+    await this.linkService.delete(id);
   }
 }
