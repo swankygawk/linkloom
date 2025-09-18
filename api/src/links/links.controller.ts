@@ -107,6 +107,12 @@ export class LinksController {
     summary: 'Delete a link by its ID',
     description: 'Permanently deletes a link from the database',
   })
+  @ApiParam({
+    name: 'id',
+    type: Number,
+    description: 'The ID of the link to delete',
+    example: 228
+  })
   @ApiResponse({
     status: HttpStatus.NO_CONTENT,
     description: 'The link was successfully deleted',
