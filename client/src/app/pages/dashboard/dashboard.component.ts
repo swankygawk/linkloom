@@ -10,6 +10,11 @@ import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
 import { ApiService, Link } from '../../services/api.service';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import {
+  ConfirmationDialogComponent,
+  ConfirmationDialogData
+} from '../../components/confirmation-dialog/confirmation-dialog.component';
+import {filter} from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
@@ -77,7 +82,42 @@ export class DashboardComponent implements OnInit {
     this.snackBar.open('Copied!', 'Close', {duration: 2000});
   }
 
-  onDeleteForever(id: number): void {
-    return;
+  onDeleteForever(linkToDelete: Link): void {
+    const dialogRef = this.dialog.open<ConfirmationDialogComponent, ConfirmationDialogData>(
+      ConfirmationDialogComponent,
+      {
+        data: {
+          title: 'Delete link',
+          message: 'Are you sure? This action cannot be undone!',
+          action: 'Delete',
+        },
+      }
+    );
+
+    dialogRef.afterClosed()
+      .pipe(filter(result => result === true))
+      .subscribe(() => {
+        this.apiService.deleteLink(linkToDelete.id).subscribe({
+          next: () => {
+            this.snackBar.open('Link deleted successfully!', 'Close', {duration: 3000});
+            this.totalLinks.update(currentTotal => currentTotal - 1);
+
+            const wasLastLinkOnPage = this.links().length === 1;
+            const isNotFirstPage = this.pageIndex() > 0;
+            if (wasLastLinkOnPage && isNotFirstPage) {
+              this.pageIndex.update(currentIndex => currentIndex - 1);
+              this.fetchLinks();
+            } else {
+              this.links.update(currentLinks => currentLinks
+                .filter(link => link.id !== linkToDelete.id)
+              );
+            }
+          },
+          error: (error) => {
+            console.error('Error deleting link:', error);
+            this.snackBar.open('Failed to delete link. Please try again', 'Close', { duration: 5000 });
+          },
+        });
+      });
   }
 }

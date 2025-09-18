@@ -37,4 +37,8 @@ export class ApiService {
   public getLinkByShortCode(shortCode: string): Observable<Link> {
     return this.http.get<Link>(`/api/links/${shortCode}`);
   }
+
+  public deleteLink(id: number): Observable<void> {
+    return this.http.delete<void>(`/api/links/${id}`);
+  }
 }
