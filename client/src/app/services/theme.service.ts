@@ -23,12 +23,23 @@ export class ThemeService {
 
   public setPreference(preference: ThemePreference): void {
     this.preference.set(preference);
-    localStorage.setItem('linkloom-theme-preference', this.preference());
+    if (typeof localStorage !== 'undefined') {
+      localStorage.setItem(this.themePreferenceLocalStorageKey, this.preference());
+    }
     this.applyTheme(this.preference());
   }
 
   private getInitialPreference(): ThemePreference {
-    return (localStorage.getItem(this.themePreferenceLocalStorageKey) as ThemePreference) || 'system';
+    if (typeof localStorage === 'undefined') {
+      return 'system';
+    }
+
+    const storedPreference = (localStorage.getItem(this.themePreferenceLocalStorageKey) as ThemePreference) || 'system';
+    if (storedPreference === 'light' || storedPreference === 'dark' || storedPreference === 'system') {
+      return storedPreference;
+    }
+
+    return 'system';
   }
 
   private applyTheme(theme: ThemePreference): void {
