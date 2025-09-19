@@ -1,0 +1,20 @@
+<div class="settings-container">
+  <mat-accordion multi>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Theme
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <mat-radio-group
+        class="theme-radio-group"
+        [ngModel]="selectedTheme()"
+        (ngModelChange)="onThemeChange($event)"
+      >
+        <mat-radio-button value="light">Light</mat-radio-button>
+        <mat-radio-button value="dark">Dark</mat-radio-button>
+        <mat-radio-button value="system">System</mat-radio-button>
+      </mat-radio-group>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

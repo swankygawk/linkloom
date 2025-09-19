@@ -19,7 +19,7 @@
             <mat-card-content class="link-card-content">
               <div class="info-container">
                 <div class="info-header">
-                  <mat-icon>link</mat-icon>
+                  <mat-icon fontIcon="link"></mat-icon>
                   <span>Original URL</span>
                 </div>
                 <span class="url">{{ link.longUrl }}</span>
@@ -27,7 +27,7 @@
               <mat-divider></mat-divider>
               <div class="info-container">
                 <div class="info-header">
-                  <mat-icon>shortcut</mat-icon>
+                  <mat-icon fontIcon="shortcut"></mat-icon>
                   <span>Short URL</span>
                 </div>
                 <div class="short-url-container">
@@ -49,14 +49,14 @@
                 [cdkCopyToClipboard]="baseUrl + '/' + link.shortCode"
                 (cdkCopyToClipboardCopied)="onCopy()"
               >
-                <mat-icon>content_copy</mat-icon>
+                <mat-icon fontIcon="content_copy"></mat-icon>
               </button>
               <button
                 mat-icon-button
                 matTooltip="Delete forever"
                 (click)="onDeleteForever(link)"
               >
-                <mat-icon>delete_forever</mat-icon>
+                <mat-icon fontIcon="delete_forever"></mat-icon>
               </button>
             </mat-card-actions>
           </mat-card>
