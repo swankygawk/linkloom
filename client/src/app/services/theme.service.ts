@@ -28,19 +28,21 @@ export class ThemeService {
   public setPreference(preference: string): void {
     this.themePreference.set(preference);
     if (typeof localStorage !== 'undefined') {
-      localStorage.setItem(this.themePreferenceLocalStorageKey, this.themePreference());
+      localStorage.setItem(this.themePreferenceLocalStorageKey, preference);
     }
-    this.applyTheme(this.themePreference());
+    this.applyTheme(preference);
   }
 
   private getInitialPreference(): string {
+    const defaultTheme = 'system';
+
     if (typeof localStorage === 'undefined') {
-      return 'system';
+      return defaultTheme;
     }
 
-    const storedPreference = localStorage.getItem(this.themePreferenceLocalStorageKey) || 'system';
+    const storedPreference = localStorage.getItem(this.themePreferenceLocalStorageKey) || defaultTheme;
     if (!themePreferences.includes(storedPreference)) {
-      return 'system';
+      return defaultTheme;
     }
 
     return storedPreference;
@@ -49,10 +51,8 @@ export class ThemeService {
   private applyTheme(theme: string): void {
     switch (theme) {
       case 'light':
-        this.document.documentElement.style.setProperty('color-scheme', 'light');
-        break;
       case 'dark':
-        this.document.documentElement.style.setProperty('color-scheme', 'dark');
+        this.document.documentElement.style.setProperty('color-scheme', theme);
         break;
       case 'system':
       default:

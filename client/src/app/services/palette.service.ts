@@ -33,6 +33,7 @@ export class PaletteService {
   public palettePreference: WritableSignal<string>;
 
   private readonly palettePreferenceLocalStorageKey = 'linkloom-palette-preference';
+  private currentPaletteClass: string | null = null;
 
   constructor(@Inject(DOCUMENT) private document: Document) {
     this.palettePreference = signal(this.getInitialPreference());
@@ -42,30 +43,36 @@ export class PaletteService {
   public setPreference(preference: string): void {
     this.palettePreference.set(preference);
     if (typeof localStorage !== 'undefined') {
-      localStorage.setItem(this.palettePreferenceLocalStorageKey, this.palettePreference());
+      localStorage.setItem(this.palettePreferenceLocalStorageKey, preference);
     }
-    this.applyPalette(this.palettePreference());
+    this.applyPalette(preference);
   }
 
   private getInitialPreference(): string {
+    const defaultPalette = 'azure'
+
     if (typeof localStorage === 'undefined') {
-      return 'azure';
+      return defaultPalette;
     }
 
-    const storedPreference = localStorage.getItem(this.palettePreferenceLocalStorageKey) || 'azure';
+    const storedPreference = localStorage.getItem(this.palettePreferenceLocalStorageKey) || defaultPalette;
     if (!palettePreferences.some(
       (palette) => palette.className === storedPreference
     )) {
-      return 'azure';
+      return defaultPalette;
     }
 
     return storedPreference;
   }
 
   private applyPalette(palettePreference: string): void {
-    palettePreferences.forEach(palette => {
-      this.document.body.classList.remove(`${palette.className}-palette`);
-    });
-    this.document.body.classList.add(`${palettePreference}-palette`);
+    const newPaletteClass = `${palettePreference}-palette`;
+
+    if (this.currentPaletteClass) {
+      this.document.body.classList.remove(this.currentPaletteClass);
+    }
+
+    this.document.body.classList.add(newPaletteClass);
+    this.currentPaletteClass = newPaletteClass;
   }
 }
