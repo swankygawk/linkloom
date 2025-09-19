@@ -14,7 +14,7 @@ import {
   ConfirmationDialogComponent,
   ConfirmationDialogData
 } from '../../components/confirmation-dialog/confirmation-dialog.component';
-import {filter} from 'rxjs';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',

@@ -1,0 +1,9 @@
+.settings-container {
+  height: calc(100dvh - 96px);
+  padding: 16px;
+}
+
+.theme-radio-group {
+  display: flex;
+  flex-direction: column;
+}

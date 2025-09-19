@@ -26,7 +26,7 @@
                 matTooltip="Clear"
                 (click)="longUrlForm.reset()"
               >
-                <mat-icon>close</mat-icon>
+                <mat-icon fontIcon="close"></mat-icon>
               </button>
             }
             <mat-hint align="start">A valid URL (starting with https://)</mat-hint>
@@ -60,7 +60,7 @@
             [cdkCopyToClipboard]="baseUrl +'/' + shortLink()!.shortCode"
             (cdkCopyToClipboardCopied)="onCopy()"
           >
-            <mat-icon>content_copy</mat-icon>
+            <mat-icon fontIcon="content_copy"></mat-icon>
           </button>
         </div>
         <button
