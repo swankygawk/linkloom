@@ -16,5 +16,20 @@
         <mat-radio-button value="system">System</mat-radio-button>
       </mat-radio-group>
     </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Palette
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <mat-select
+        [ngModel]="selectedPalette()"
+        (ngModelChange)="onPaletteChange($event)"
+      >
+        @for (palette of availablePalettes; track palette) {
+          <mat-option [value]="palette.className">{{ palette.displayName }}</mat-option>
+        }
+      </mat-select>
+    </mat-expansion-panel>
   </mat-accordion>
 </div>

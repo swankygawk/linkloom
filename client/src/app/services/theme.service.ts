@@ -6,43 +6,47 @@ import {
   WritableSignal
 } from '@angular/core';
 
-export type ThemePreference = 'light' | 'dark' | 'system';
+export const themePreferences: string[] = [
+  'light',
+  'dark',
+  'system'
+];
 
 @Injectable({
   providedIn: 'root'
 })
 export class ThemeService {
-  public preference: WritableSignal<ThemePreference>;
+  public themePreference: WritableSignal<string>;
+
   private readonly themePreferenceLocalStorageKey = 'linkloom-theme-preference';
 
   constructor(@Inject(DOCUMENT) private document: Document) {
-    const storedPreference = this.getInitialPreference();
-    this.preference = signal(storedPreference);
-    this.applyTheme(this.preference());
+    this.themePreference = signal(this.getInitialPreference());
+    this.applyTheme(this.themePreference());
   }
 
-  public setPreference(preference: ThemePreference): void {
-    this.preference.set(preference);
+  public setPreference(preference: string): void {
+    this.themePreference.set(preference);
     if (typeof localStorage !== 'undefined') {
-      localStorage.setItem(this.themePreferenceLocalStorageKey, this.preference());
+      localStorage.setItem(this.themePreferenceLocalStorageKey, this.themePreference());
     }
-    this.applyTheme(this.preference());
+    this.applyTheme(this.themePreference());
   }
 
-  private getInitialPreference(): ThemePreference {
+  private getInitialPreference(): string {
     if (typeof localStorage === 'undefined') {
       return 'system';
     }
 
-    const storedPreference = (localStorage.getItem(this.themePreferenceLocalStorageKey) as ThemePreference) || 'system';
-    if (storedPreference === 'light' || storedPreference === 'dark' || storedPreference === 'system') {
-      return storedPreference;
+    const storedPreference = localStorage.getItem(this.themePreferenceLocalStorageKey) || 'system';
+    if (!themePreferences.includes(storedPreference)) {
+      return 'system';
     }
 
-    return 'system';
+    return storedPreference;
   }
 
-  private applyTheme(theme: ThemePreference): void {
+  private applyTheme(theme: string): void {
     switch (theme) {
       case 'light':
         this.document.documentElement.style.setProperty('color-scheme', 'light');
