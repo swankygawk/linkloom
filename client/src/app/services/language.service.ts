@@ -1,5 +1,5 @@
 import { computed, DOCUMENT, Inject, Injectable, Signal, signal, WritableSignal } from '@angular/core';
-import { TranslocoService } from '@ngneat/transloco';
+import { TranslocoService } from '@jsverse/transloco';
 
 export interface Language {
   tag: string;
@@ -83,7 +83,7 @@ export class LanguageService {
     const supportedLangs = this.translocoService.getAvailableLangs() as string[];
     const defaultLang = 'en-US';
 
-    if (typeof localStorage === undefined) {
+    if (typeof localStorage === 'undefined') {
       return defaultLang;
     }
 

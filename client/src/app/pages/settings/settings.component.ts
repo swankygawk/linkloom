@@ -26,7 +26,7 @@ import {
   PaletteService,
   palettePreferences
 } from '../../services/palette.service';
-import { TranslocoPipe } from '@ngneat/transloco';
+import { TranslocoPipe } from '@jsverse/transloco';
 import { Language, LanguageService } from '../../services/language.service';
 
 @Component({

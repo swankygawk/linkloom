@@ -11,7 +11,7 @@ import { MatIcon } from '@angular/material/icon';
 import { asyncScheduler, of, scheduled } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatTooltip } from '@angular/material/tooltip';
-import { TranslocoPipe, TranslocoService } from '@ngneat/transloco';
+import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { LanguageService } from '../../services/language.service';
 
 @Component({

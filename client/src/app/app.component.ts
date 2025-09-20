@@ -4,7 +4,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { ThemeService } from './services/theme.service';
 import { PaletteService } from './services/palette.service';
-import { TranslocoPipe } from '@ngneat/transloco';
+import { TranslocoPipe } from '@jsverse/transloco';
 import { LanguageService } from './services/language.service';
 
 @Component({
