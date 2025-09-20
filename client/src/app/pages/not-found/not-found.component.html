@@ -1,9 +1,9 @@
 <div class="not-found-container">
   <div class="state-container">
     @if (invalidCode()) {
-      The short link {{ invalidCode() }} does not exist or was deleted
+      {{ 'SHORT_CODE_NOT_FOUND_MESSAGE' | transloco: { invalidCode: invalidCode() } }}
     } @else {
-      The page you're looking for does not exist
+      {{ 'PAGE_NOT_FOUND_MESSAGE' | transloco }}
     }
   </div>
 </div>

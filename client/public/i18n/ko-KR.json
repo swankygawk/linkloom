@@ -1,0 +1,67 @@
+{
+  "NAV_HOME": "홈",
+  "NAV_DASHBOARD": "대시보드",
+  "NAV_SETTINGS": "설정",
+
+  "HOME_TITLE": "긴 URL 줄이기",
+  "HOME_INPUT_LABEL": "긴 URL",
+  "HOME_CLEAR_INPUT_TOOLTIP": "지우기",
+  "HOME_INPUT_HINT": "유효한 URL (https://로 시작)",
+  "HOME_REQUIRED_ERROR": "값을 입력해야 합니다",
+  "HOME_PATTERN_ERROR": "유효한 URL이 아닙니다",
+  "HOME_SUBMIT_BUTTON": "줄이기!",
+  "HOME_RESULT_TITLE": "링크가 준비되었습니다!",
+  "HOME_RESULT_COPY_TOOLTIP": "클립보드에 복사",
+  "HOME_RESULT_RESET_BUTTON": "다른 링크 줄이기",
+
+  "DASHBOARD_EMPTY": "아직 링크를 만들지 않았습니다. 하나 만들어 보세요!",
+  "DASHBOARD_ORIGINAL_URL_LABEL": "원본 URL",
+  "DASHBOARD_SHORT_URL_LABEL": "단축 URL",
+  "DASHBOARD_COPY_TOOLTIP": "단축 URL 복사",
+  "DASHBOARD_DELETE_FOREVER_TOOLTIP": "영구 삭제",
+
+  "PAGINATOR_ITEMS_PER_PAGE": "페이지당 항목 수:",
+  "PAGINATOR_NEXT_PAGE": "다음 페이지",
+  "PAGINATOR_PREVIOUS_PAGE": "이전 페이지",
+  "PAGINATOR_FIRST_PAGE": "첫 페이지",
+  "PAGINATOR_LAST_PAGE": "마지막 페이지",
+  "PAGINATOR_RANGE_LABEL": "{{ length }}개 중 {{ start }} – {{ end }}개",
+
+  "SETTINGS_THEME_TITLE": "테마",
+  "SETTINGS_THEME_LIGHT": "라이트",
+  "SETTINGS_THEME_DARK": "다크",
+  "SETTINGS_THEME_SYSTEM": "시스템",
+  "SETTINGS_PALETTE_TITLE": "팔레트",
+  "SETTINGS_PALETTE_RED": "빨강",
+  "SETTINGS_PALETTE_GREEN": "초록",
+  "SETTINGS_PALETTE_BLUE": "파랑",
+  "SETTINGS_PALETTE_YELLOW": "노랑",
+  "SETTINGS_PALETTE_CYAN": "청록",
+  "SETTINGS_PALETTE_MAGENTA": "자홍",
+  "SETTINGS_PALETTE_ORANGE": "주황",
+  "SETTINGS_PALETTE_CHARTREUSE": "샤르트뢰즈",
+  "SETTINGS_PALETTE_SPRING_GREEN": "스프링 그린",
+  "SETTINGS_PALETTE_AZURE": "하늘색",
+  "SETTINGS_PALETTE_VIOLET": "보라",
+  "SETTINGS_PALETTE_ROSE": "장미",
+  "SETTINGS_LANGUAGE_TITLE": "언어",
+
+  "REDIRECT_PAGE_MESSAGE": "리디렉션 중...",
+
+  "PAGE_NOT_FOUND_MESSAGE": "찾고 있는 페이지가 존재하지 않습니다",
+  "SHORT_CODE_NOT_FOUND_MESSAGE": "단축 링크 \"{{ invalidCode }}\"가 존재하지 않거나 삭제되었습니다",
+
+  "DIALOG_CANCEL_BUTTON": "취소",
+  "DIALOG_DELETE_TITLE": "링크 삭제",
+  "DIALOG_DELETE_MESSAGE": "이 작업은 되돌릴 수 없습니다! 확실합니까?",
+  "DIALOG_DELETE_ACTION_BUTTON": "삭제",
+
+  "SNACKBAR_CLOSE_BUTTON": "닫기",
+  "SNACKBAR_LINK_SHORTENED_SUCCESS": "링크를 성공적으로 줄였습니다!",
+  "SNACKBAR_LINK_SHORTENED_ERROR": "오류가 발생했습니다. 다시 시도해 주세요",
+  "SNACKBAR_LINK_COPIED": "복사되었습니다!",
+  "SNACKBAR_LINKS_FETCH_ERROR": "링크를 가져올 수 없습니다. 다시 시도해 주세요",
+  "SNACKBAR_LINK_DELETED_SUCCESS": "링크를 성공적으로 삭제했습니다!",
+  "SNACKBAR_LINK_DELETED_ERROR": "링크 삭제에 실패했습니다. 다시 시도해 주세요"
+
+}

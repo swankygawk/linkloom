@@ -2,7 +2,7 @@
   <mat-card class="home-card">
     @if (!shortLink()) {
       <mat-card-header>
-        <mat-card-title class="home-card-title">Shorten long URL</mat-card-title>
+        <mat-card-title class="home-card-title">{{ 'HOME_TITLE' | transloco }}</mat-card-title>
       </mat-card-header>
       <form (ngSubmit)="onSubmit()">
         <mat-card-content class="home-card-content">
@@ -10,7 +10,7 @@
             appearance="outline"
             hideRequiredMarker
           >
-            <mat-label>Long URL</mat-label>
+            <mat-label>{{ 'HOME_INPUT_LABEL' | transloco }}</mat-label>
             <input
               matInput
               type="url"
@@ -23,13 +23,13 @@
               <button
                 matIconButton
                 matSuffix
-                matTooltip="Clear"
+                matTooltip="{{ 'HOME_CLEAR_INPUT_TOOLTIP' | transloco }}"
                 (click)="longUrlForm.reset()"
               >
                 <mat-icon fontIcon="close"></mat-icon>
               </button>
             }
-            <mat-hint align="start">A valid URL (starting with https://)</mat-hint>
+            <mat-hint align="start">{{ 'HOME_INPUT_HINT' | transloco }}</mat-hint>
             <mat-error>{{ errorMessage() }}</mat-error>
           </mat-form-field>
           <button
@@ -37,14 +37,14 @@
             type="submit"
             [disabled]="longUrlForm.invalid"
           >
-            Loom it!
+            {{ 'HOME_SUBMIT_BUTTON' | transloco }}
           </button>
         </mat-card-content>
       </form>
     }
     @if (shortLink()) {
       <mat-card-header>
-        <mat-card-title class="home-card-title">Your link is ready!</mat-card-title>
+        <mat-card-title class="home-card-title">{{ 'HOME_RESULT_TITLE' | transloco }}</mat-card-title>
       </mat-card-header>
       <mat-card-content class="home-card-content">
         <div class="short-link-container">
@@ -56,7 +56,7 @@
           </a>
           <button
             matIconButton
-            matTooltip="Copy to clipboard"
+            matTooltip="{{ 'HOME_RESULT_COPY_TOOLTIP' | transloco }}"
             [cdkCopyToClipboard]="baseUrl +'/' + shortLink()!.shortCode"
             (cdkCopyToClipboardCopied)="onCopy()"
           >
@@ -67,7 +67,7 @@
           matButton="outlined"
           (click)="resetCardContent()"
         >
-          Loom another link
+          {{ 'HOME_RESULT_RESET_BUTTON' | transloco }}
         </button>
       </mat-card-content>
     }

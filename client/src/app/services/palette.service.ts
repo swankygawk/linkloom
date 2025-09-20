@@ -7,23 +7,23 @@ import {
 } from '@angular/core';
 
 export interface Palette {
-  displayName: string;
+  translationKey: string;
   className: string;
 }
 
 export const palettePreferences: Palette[] = [
-  { displayName: 'Red', className: 'red' },
-  { displayName: 'Green', className: 'green' },
-  { displayName: 'Blue', className: 'blue' },
-  { displayName: 'Yellow', className: 'yellow' },
-  { displayName: 'Cyan', className: 'cyan' },
-  { displayName: 'Magenta', className: 'magenta' },
-  { displayName: 'Orange', className: 'orange' },
-  { displayName: 'Chartreuse', className: 'chartreuse' },
-  { displayName: 'Spring Green', className: 'spring-green' },
-  { displayName: 'Azure', className: 'azure' },
-  { displayName: 'Violet', className: 'violet' },
-  { displayName: 'Rose', className: 'rose' },
+  { translationKey: 'SETTINGS_PALETTE_RED', className: 'red' },
+  { translationKey: 'SETTINGS_PALETTE_GREEN', className: 'green' },
+  { translationKey: 'SETTINGS_PALETTE_BLUE', className: 'blue' },
+  { translationKey: 'SETTINGS_PALETTE_YELLOW', className: 'yellow' },
+  { translationKey: 'SETTINGS_PALETTE_CYAN', className: 'cyan' },
+  { translationKey: 'SETTINGS_PALETTE_MAGENTA', className: 'magenta' },
+  { translationKey: 'SETTINGS_PALETTE_ORANGE', className: 'orange' },
+  { translationKey: 'SETTINGS_PALETTE_CHARTREUSE', className: 'chartreuse' },
+  { translationKey: 'SETTINGS_PALETTE_SPRING_GREEN', className: 'spring-green' },
+  { translationKey: 'SETTINGS_PALETTE_AZURE', className: 'azure' },
+  { translationKey: 'SETTINGS_PALETTE_VIOLET', className: 'violet' },
+  { translationKey: 'SETTINGS_PALETTE_ROSE', className: 'rose' },
 ];
 
 @Injectable({
@@ -49,7 +49,7 @@ export class PaletteService {
   }
 
   private getInitialPreference(): string {
-    const defaultPalette = 'azure'
+    const defaultPalette = 'azure';
 
     if (typeof localStorage === 'undefined') {
       return defaultPalette;
