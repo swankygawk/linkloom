@@ -9,7 +9,7 @@ import { provideHttpClient } from '@angular/common/http';
 
 import { routes } from './app.routes';
 import { TranslocoHttpLoader } from './transloco-loader';
-import { provideTransloco } from '@ngneat/transloco';
+import { provideTransloco } from '@jsverse/transloco';
 import { MatPaginatorIntl } from '@angular/material/paginator';
 import { PaginatorIntl } from './intl/paginator-intl';
 import { supportedLanguages } from './services/language.service'
@@ -19,7 +19,6 @@ export const appConfig: ApplicationConfig = {
     provideBrowserGlobalErrorListeners(),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
-    provideHttpClient(),
     provideHttpClient(),
     provideTransloco({
         config: {

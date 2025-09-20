@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { MatPaginatorIntl } from "@angular/material/paginator";
 import { filter } from 'rxjs';
-import { TranslocoService } from '@ngneat/transloco';
+import { TranslocoService } from '@jsverse/transloco';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Injectable({

@@ -15,7 +15,7 @@ import {
   ConfirmationDialogData
 } from '../../components/confirmation-dialog/confirmation-dialog.component';
 import { filter } from 'rxjs';
-import { TranslocoPipe, TranslocoService } from '@ngneat/transloco';
+import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { LanguageService } from '../../services/language.service';
 
 @Component({

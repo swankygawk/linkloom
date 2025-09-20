@@ -10,7 +10,7 @@ import {
   MatDialogTitle
 } from '@angular/material/dialog';
 import { MatButton } from '@angular/material/button';
-import { TranslocoPipe } from '@ngneat/transloco';
+import { TranslocoPipe } from '@jsverse/transloco';
 
 export interface ConfirmationDialogData {
   title: string;
