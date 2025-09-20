@@ -1,7 +1,8 @@
 import {
   ChangeDetectionStrategy,
   WritableSignal,
-  Component
+  Component,
+  Signal
 } from '@angular/core';
 import {
   MatRadioButton,
@@ -15,12 +16,18 @@ import {
   MatExpansionPanelTitle
 } from '@angular/material/expansion';
 import { MatSelectModule } from '@angular/material/select';
-import { ThemeService } from '../../services/theme.service';
+import {
+  ThemeService,
+  Theme,
+  themePreferences
+} from '../../services/theme.service';
 import {
   Palette,
-  palettePreferences,
-  PaletteService
+  PaletteService,
+  palettePreferences
 } from '../../services/palette.service';
+import { TranslocoPipe } from '@ngneat/transloco';
+import { Language, LanguageService } from '../../services/language.service';
 
 @Component({
   selector: 'app-settings',
@@ -33,7 +40,8 @@ import {
     MatExpansionPanel,
     MatExpansionPanelHeader,
     MatExpansionPanelTitle,
-    MatSelectModule
+    MatSelectModule,
+    TranslocoPipe
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './settings.component.html',
@@ -42,14 +50,22 @@ import {
 export class SettingsComponent {
   public selectedTheme: WritableSignal<string>;
   public selectedPalette: WritableSignal<string>;
+  public selectedLanguage: WritableSignal<string>;
+
+  public availableThemes: Theme[] = themePreferences;
   public availablePalettes: Palette[] = palettePreferences;
+  public availableLanguages: Signal<Language[]>;
 
   constructor(
     private themeService: ThemeService,
     private paletteService: PaletteService,
+    private languageService: LanguageService,
   ) {
     this.selectedTheme = themeService.themePreference;
     this.selectedPalette = paletteService.palettePreference;
+    this.selectedLanguage = languageService.languagePreference;
+
+    this.availableLanguages = languageService.languagePreferences;
   }
 
   onThemeChange(theme: string): void {
@@ -58,5 +74,9 @@ export class SettingsComponent {
 
   onPaletteChange(palette: string): void {
     this.paletteService.setPreference(palette);
+  }
+
+  onLanguageChange(language: string): void {
+    this.languageService.setPreference(language);
   }
 }

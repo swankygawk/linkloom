@@ -8,7 +8,7 @@
   @if (!isLoading()) {
     @if (totalLinks() === 0) {
       <div class="state-container no-links">
-        You haven't created any links yet. Go Loom one!
+        {{ 'DASHBOARD_EMPTY' | transloco }}
       </div>
     }
 
@@ -20,15 +20,15 @@
               <div class="info-container">
                 <div class="info-header">
                   <mat-icon fontIcon="link"></mat-icon>
-                  <span>Original URL</span>
+                  <span>{{ 'DASHBOARD_ORIGINAL_URL_LABEL' | transloco }}</span>
                 </div>
                 <span class="url">{{ link.longUrl }}</span>
               </div>
               <mat-divider></mat-divider>
               <div class="info-container">
                 <div class="info-header">
-                  <mat-icon fontIcon="shortcut"></mat-icon>
-                  <span>Short URL</span>
+                  <mat-icon class="mat-icon-rtl-mirror" fontIcon="shortcut"></mat-icon>
+                  <span>{{ 'DASHBOARD_SHORT_URL_LABEL' | transloco }}</span>
                 </div>
                 <div class="short-url-container">
                   <a
@@ -45,7 +45,7 @@
             <mat-card-actions align="end">
               <button
                 mat-icon-button
-                matTooltip="Copy short URL"
+                matTooltip="{{ 'DASHBOARD_COPY_TOOLTIP' | transloco }}"
                 [cdkCopyToClipboard]="baseUrl + '/' + link.shortCode"
                 (cdkCopyToClipboardCopied)="onCopy()"
               >
@@ -53,7 +53,7 @@
               </button>
               <button
                 mat-icon-button
-                matTooltip="Delete forever"
+                matTooltip="{{ 'DASHBOARD_DELETE_FOREVER_TOOLTIP' | transloco }}"
                 (click)="onDeleteForever(link)"
               >
                 <mat-icon fontIcon="delete_forever"></mat-icon>

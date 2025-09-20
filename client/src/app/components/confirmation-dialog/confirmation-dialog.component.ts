@@ -10,6 +10,7 @@ import {
   MatDialogTitle
 } from '@angular/material/dialog';
 import { MatButton } from '@angular/material/button';
+import { TranslocoPipe } from '@ngneat/transloco';
 
 export interface ConfirmationDialogData {
   title: string;
@@ -25,7 +26,8 @@ export interface ConfirmationDialogData {
     MatDialogContent,
     MatDialogActions,
     MatDialogClose,
-    MatButton
+    MatButton,
+    TranslocoPipe
   ],
   templateUrl: './confirmation-dialog.component.html',
   styleUrl: './confirmation-dialog.component.scss'

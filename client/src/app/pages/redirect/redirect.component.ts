@@ -1,14 +1,15 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { ApiService } from '../../services/api.service';
+import { TranslocoPipe } from '@ngneat/transloco';
 
 @Component({
   selector: 'app-redirect',
   standalone: true,
   imports: [
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    TranslocoPipe
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './redirect.component.html',
@@ -18,7 +19,6 @@ export class RedirectComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private snackBar: MatSnackBar,
     private apiService: ApiService,
   ) {}
 
