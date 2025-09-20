@@ -11,6 +11,8 @@ import { MatIcon } from '@angular/material/icon';
 import { asyncScheduler, of, scheduled } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatTooltip } from '@angular/material/tooltip';
+import { TranslocoPipe, TranslocoService } from '@ngneat/transloco';
+import { LanguageService } from '../../services/language.service';
 
 @Component({
   selector: 'app-home',
@@ -25,7 +27,8 @@ import { MatTooltip } from '@angular/material/tooltip';
     ClipboardModule,
     MatIcon,
     FormsModule,
-    MatTooltip
+    MatTooltip,
+    TranslocoPipe
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './home.component.html',
@@ -39,6 +42,8 @@ export class HomeComponent {
 
   constructor(
     private apiService: ApiService,
+    private translocoService: TranslocoService,
+    private languageService: LanguageService,
     private snackBar: MatSnackBar
   ) {
     scheduled([of(this.longUrlForm.statusChanges, this.longUrlForm.valueChanges)], asyncScheduler)
@@ -55,29 +60,51 @@ export class HomeComponent {
 
     this.apiService.createLink(longUrl).subscribe({
       next: (response) => {
+        const message = this.translocoService.translate('SNACKBAR_LINK_SHORTENED_SUCCESS');
+        const closeButton = this.translocoService.translate('SNACKBAR_CLOSE_BUTTON');
+
         this.shortLink.set(response);
-        this.snackBar.open('Link shortened successfully!', 'Close', { duration: 5000 });
+        this.snackBar.open(message, closeButton, {
+          duration: 5000,
+          direction: this.languageService.dir()
+        });
         this.longUrlForm.reset();
       },
       error: (error) => {
         console.error('Error creating link: ', error);
-        this.snackBar.open('An error occurred. Please try again', 'Close', { duration: 5000 });
+
+        const message = this.translocoService.translate('SNACKBAR_LINK_SHORTENED_ERROR');
+        const closeButton = this.translocoService.translate('SNACKBAR_CLOSE_BUTTON');
+
+        this.snackBar.open(message, closeButton, {
+          duration: 5000,
+          direction: this.languageService.dir()
+        });
       }
     })
   }
 
   updateErrorMessage(): void {
+    const requiredError = this.translocoService.translate('HOME_REQUIRED_ERROR');
+    const patternError = this.translocoService.translate('HOME_PATTERN_ERROR');
+
     if (this.longUrlForm.hasError('required')) {
-      this.errorMessage.set('You must enter a value');
+      this.errorMessage.set(requiredError);
     } else if (this.longUrlForm.hasError('pattern')) {
-      this.errorMessage.set('Not a valid URL');
+      this.errorMessage.set(patternError);
     } else {
       this.errorMessage.set('');
     }
   }
 
   onCopy(): void {
-    this.snackBar.open('Copied!', 'Close', { duration: 2000 });
+    const message = this.translocoService.translate('SNACKBAR_LINK_COPIED');
+    const closeButton = this.translocoService.translate('SNACKBAR_CLOSE_BUTTON');
+
+    this.snackBar.open(message, closeButton, {
+      duration: 2000,
+      direction: this.languageService.dir()
+    });
   }
 
   resetCardContent(): void {

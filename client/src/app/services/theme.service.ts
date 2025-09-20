@@ -6,10 +6,15 @@ import {
   WritableSignal
 } from '@angular/core';
 
-export const themePreferences: string[] = [
-  'light',
-  'dark',
-  'system'
+export interface Theme {
+  translationKey: string;
+  propertyValue: string;
+}
+
+export const themePreferences: Theme[] = [
+  { translationKey: 'SETTINGS_THEME_LIGHT', propertyValue: 'light' },
+  { translationKey: 'SETTINGS_THEME_DARK', propertyValue: 'dark' },
+  { translationKey: 'SETTINGS_THEME_SYSTEM', propertyValue: 'light dark' },
 ];
 
 @Injectable({
@@ -20,7 +25,9 @@ export class ThemeService {
 
   private readonly themePreferenceLocalStorageKey = 'linkloom-theme-preference';
 
-  constructor(@Inject(DOCUMENT) private document: Document) {
+  constructor(
+    @Inject(DOCUMENT) private document: Document
+  ) {
     this.themePreference = signal(this.getInitialPreference());
     this.applyTheme(this.themePreference());
   }
@@ -34,14 +41,16 @@ export class ThemeService {
   }
 
   private getInitialPreference(): string {
-    const defaultTheme = 'system';
+    const defaultTheme = 'light dark';
 
     if (typeof localStorage === 'undefined') {
       return defaultTheme;
     }
 
     const storedPreference = localStorage.getItem(this.themePreferenceLocalStorageKey) || defaultTheme;
-    if (!themePreferences.includes(storedPreference)) {
+    if (!themePreferences.some(
+      (theme) => theme.propertyValue === storedPreference
+    )) {
       return defaultTheme;
     }
 
@@ -49,15 +58,6 @@ export class ThemeService {
   }
 
   private applyTheme(theme: string): void {
-    switch (theme) {
-      case 'light':
-      case 'dark':
-        this.document.documentElement.style.setProperty('color-scheme', theme);
-        break;
-      case 'system':
-      default:
-        this.document.documentElement.style.setProperty('color-scheme', 'light dark');
-        break;
-    }
+    this.document.documentElement.style.setProperty('color-scheme', theme);
   }
 }

@@ -3,23 +3,22 @@
     <mat-expansion-panel>
       <mat-expansion-panel-header>
         <mat-panel-title>
-          Theme
+          {{ 'SETTINGS_THEME_TITLE' | transloco }}
         </mat-panel-title>
       </mat-expansion-panel-header>
       <mat-radio-group
-        class="theme-radio-group"
         [ngModel]="selectedTheme()"
         (ngModelChange)="onThemeChange($event)"
       >
-        <mat-radio-button value="light">Light</mat-radio-button>
-        <mat-radio-button value="dark">Dark</mat-radio-button>
-        <mat-radio-button value="system">System</mat-radio-button>
+        @for (theme of availableThemes; track theme) {
+          <mat-radio-button [value]="theme.propertyValue">{{ theme.translationKey | transloco }}</mat-radio-button>
+        }
       </mat-radio-group>
     </mat-expansion-panel>
     <mat-expansion-panel>
       <mat-expansion-panel-header>
         <mat-panel-title>
-          Palette
+          {{ 'SETTINGS_PALETTE_TITLE' | transloco }}
         </mat-panel-title>
       </mat-expansion-panel-header>
       <mat-select
@@ -27,7 +26,22 @@
         (ngModelChange)="onPaletteChange($event)"
       >
         @for (palette of availablePalettes; track palette) {
-          <mat-option [value]="palette.className">{{ palette.displayName }}</mat-option>
+          <mat-option [value]="palette.className">{{ palette.translationKey | transloco }}</mat-option>
+        }
+      </mat-select>
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{ 'SETTINGS_LANGUAGE_TITLE' | transloco }}
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <mat-select
+        [ngModel]="selectedLanguage()"
+        (ngModelChange)="onLanguageChange($event)"
+      >
+        @for (language of availableLanguages(); track language.tag) {
+          <mat-option [value]="language.tag">{{ language.displayName }}</mat-option>
         }
       </mat-select>
     </mat-expansion-panel>

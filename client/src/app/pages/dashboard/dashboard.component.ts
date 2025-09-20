@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, signal} from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatListModule } from '@angular/material/list';
@@ -15,6 +15,8 @@ import {
   ConfirmationDialogData
 } from '../../components/confirmation-dialog/confirmation-dialog.component';
 import { filter } from 'rxjs';
+import { TranslocoPipe, TranslocoService } from '@ngneat/transloco';
+import { LanguageService } from '../../services/language.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -29,7 +31,8 @@ import { filter } from 'rxjs';
     MatDialogModule,
     ClipboardModule,
     MatIcon,
-    MatTooltip
+    MatTooltip,
+    TranslocoPipe
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './dashboard.component.html',
@@ -45,6 +48,8 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     private apiService: ApiService,
+    private translocoService: TranslocoService,
+    private languageService: LanguageService,
     private snackBar: MatSnackBar,
     private dialog: MatDialog
   ) {
@@ -66,7 +71,14 @@ export class DashboardComponent implements OnInit {
         },
         error: (error) => {
           console.error('Error fetching links:', error);
-          this.snackBar.open('Could not fetch links. Please try again', 'Close', {duration: 5000});
+
+          const message = this.translocoService.translate('SNACKBAR_LINKS_FETCH_ERROR');
+          const closeButton = this.translocoService.translate('SNACKBAR_CLOSE_BUTTON');
+
+          this.snackBar.open(message, closeButton, {
+            duration: 5000,
+            direction: this.languageService.dir()
+          });
           this.isLoading.set(false);
         },
       });
@@ -79,18 +91,29 @@ export class DashboardComponent implements OnInit {
   }
 
   onCopy(): void {
-    this.snackBar.open('Copied!', 'Close', {duration: 2000});
+    const message = this.translocoService.translate('SNACKBAR_LINK_COPIED');
+    const closeButton = this.translocoService.translate('SNACKBAR_CLOSE_BUTTON');
+
+    this.snackBar.open(message, closeButton, {
+      duration: 2000,
+      direction: this.languageService.dir()
+    });
   }
 
   onDeleteForever(linkToDelete: Link): void {
+    const dialogTitle = this.translocoService.translate('DIALOG_DELETE_TITLE');
+    const dialogMessage = this.translocoService.translate('DIALOG_DELETE_MESSAGE');
+    const dialogAction = this.translocoService.translate('DIALOG_DELETE_ACTION_BUTTON');
+
     const dialogRef = this.dialog.open<ConfirmationDialogComponent, ConfirmationDialogData>(
       ConfirmationDialogComponent,
       {
         data: {
-          title: 'Delete link',
-          message: 'Are you sure? This action cannot be undone!',
-          action: 'Delete',
+          title: dialogTitle,
+          message: dialogMessage,
+          action: dialogAction,
         },
+        direction: this.languageService.dir()
       }
     );
 
@@ -99,7 +122,13 @@ export class DashboardComponent implements OnInit {
       .subscribe(() => {
         this.apiService.deleteLink(linkToDelete.id).subscribe({
           next: () => {
-            this.snackBar.open('Link deleted successfully!', 'Close', {duration: 3000});
+            const message = this.translocoService.translate('SNACKBAR_LINK_DELETED_SUCCESS');
+            const closeButton = this.translocoService.translate('SNACKBAR_CLOSE_BUTTON');
+
+            this.snackBar.open(message, closeButton, {
+              duration: 3000,
+              direction: this.languageService.dir()
+            });
             this.totalLinks.update(currentTotal => currentTotal - 1);
 
             const wasLastLinkOnPage = this.links().length === 1;
@@ -115,7 +144,14 @@ export class DashboardComponent implements OnInit {
           },
           error: (error) => {
             console.error('Error deleting link:', error);
-            this.snackBar.open('Failed to delete link. Please try again', 'Close', { duration: 5000 });
+
+            const message = this.translocoService.translate('SNACKBAR_LINK_DELETED_ERROR');
+            const closeButton = this.translocoService.translate('SNACKBAR_CLOSE_BUTTON');
+
+            this.snackBar.open(message, closeButton, {
+              duration: 5000,
+              direction: this.languageService.dir()
+            });
           },
         });
       });
