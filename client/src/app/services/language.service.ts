@@ -15,6 +15,7 @@ export const supportedLanguages: string[] = [
   'pt-PT',
   'pt-BR',
   'ru-RU',
+  'el-GR',
   'tr-TR',
   'zh-CN',
   'zh-TW',
