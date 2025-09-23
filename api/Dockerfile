@@ -3,7 +3,7 @@ WORKDIR /usr/src/app
 
 FROM base AS dependencies
 COPY package*.json ./
-RUN npm ci
+RUN npm ci --omit=dev
 COPY prisma ./prisma
 RUN npx prisma generate
 
@@ -21,4 +21,4 @@ COPY package*.json ./
 
 EXPOSE 3000
 
-ENTRYPOINT ["sh", "-c", "npx prisma migrate deploy && node dist/main"]
+ENTRYPOINT ["sh", "-c", "npx prisma migrate deploy && exec node dist/main"]
