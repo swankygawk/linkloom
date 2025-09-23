@@ -1,8 +1,9 @@
 FROM node:22.19.0-alpine AS build
 WORKDIR /usr/src/app
 
-COPY . .
+COPY package*.json .
 RUN npm ci
+COPY . .
 RUN npm run build
 
 FROM nginx:1.24.0-alpine
